@@ -1,0 +1,24 @@
+Project Commands:
+
+
+Gradle:
+
+To run tests from root project folder:
+
+	./gradlew test
+
+
+
+
+Docker:
+
+	Starting mysql container by passing password and an option to run from any host as environment variable:
+
+		docker run -d --name mysql-container -p 3306:3306 \
+  				   -e MYSQL_ROOT_PASSWORD="root" \
+  				   -e MYSQL_ROOT_HOST="%" \
+  				   -e MYSQL_DATABASE=better_banking \
+  				   \mysql:latest
+
+
+testImplementation 'io.rest-assured:spring-mock-mvc:5.5.0'

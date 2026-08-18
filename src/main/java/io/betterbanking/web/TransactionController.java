@@ -1,8 +1,13 @@
-package io.betterbanking.controller;
+package io.betterbanking.web;
 
 import io.betterbanking.entity.Transaction;
 import io.betterbanking.service.TransactionService;
-import org.springframework.web.bind.annotation.*;
+import io.betterbanking.web.dto.TransactionDto;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.List;
 
 @RestController
@@ -21,4 +26,9 @@ public class TransactionController {
         List<Transaction> transactionsList = transactionService.findAllByAccountNumber(accountNumber);
         return transactionsList;
     }
+
+    private TransactionDto map(final Transaction tr) {
+        return TransactionDto.apply(tr);
+    }
+
 }

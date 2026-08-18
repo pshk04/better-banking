@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="io.BetterBankingApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2026-08-18T21:28:44.902Z" hostname="Puneeths-Mac-mini.local" time="0.979">
+  <properties/>
+  <testcase name="contextLoads()" classname="io.BetterBankingApplicationTests" time="0.319"/>
+  <system-out><![CDATA[15:28:44.964 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [io.BetterBankingApplicationTests]: BetterBankingApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:28:45.006 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration io.BetterBankingApplication for test class io.BetterBankingApplicationTests
+15:28:45.034 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [io.BetterBankingApplicationTests]: BetterBankingApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:28:45.035 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration io.BetterBankingApplication for test class io.BetterBankingApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.0)
+
+2026-08-18T15:28:45.140-06:00  INFO 17221 --- [demo] [    Test worker] io.BetterBankingApplicationTests         : Starting BetterBankingApplicationTests using Java 17.0.17 with PID 17221 (started by puneethshankar in /Users/puneethshankar/Documents/Coding_Projects/Spring_Boot_Projects/better-banking.io)
+2026-08-18T15:28:45.140-06:00  INFO 17221 --- [demo] [    Test worker] io.BetterBankingApplicationTests         : No active profile set, falling back to 1 default profile: "default"
+2026-08-18T15:28:45.557-06:00  INFO 17221 --- [demo] [    Test worker] io.BetterBankingApplicationTests         : Started BetterBankingApplicationTests in 0.497 seconds (process running for 0.961)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

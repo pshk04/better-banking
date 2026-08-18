@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-<title>Test results - io.service.TransactionServiceTest</title>
+<title>Test results - io.controller.TransactionControllerIntegrationTest</title>
 <link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
 <link href="../css/style.css" rel="stylesheet" type="text/css"/>
 <script src="../js/report.js" type="text/javascript"></script>
@@ -12,7 +12,7 @@
 <div id="content">
 <div class="breadcrumbs">
 <a class="breadcrumb" href="../index.html">all</a> &gt; 
-<span class="breadcrumb">io.service.TransactionServiceTest</span>
+<span class="breadcrumb">io.controller.TransactionControllerIntegrationTest</span>
 </div>
 <div class="tab-container">
 <ul class="tabLinks">
@@ -22,7 +22,7 @@
 </ul>
 <div class="tab">
 <h2>Gradle Test Run :test</h2>
-<h1>TransactionServiceTest</h1>
+<h1>TransactionControllerIntegrationTest</h1>
 <div class="tab-container">
 <ul class="tabLinks">
 <li>
@@ -62,7 +62,7 @@
 </td>
 <td>
 <div class="infoBox duration">
-<div class="counter">0.008s</div>
+<div class="counter">0.184s</div>
 <p>duration</p>
 </div>
 </td>
@@ -92,12 +92,12 @@
 </tr>
 </thead>
 <tr>
-<td class="success">getTransactions()</td>
-<td class="path" hidden="">getTransactions()</td>
+<td class="success">testTransactions()</td>
+<td class="path" hidden="">testTransactions()</td>
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0.002s</td>
+<td>0.045s</td>
 <td class="success">100%</td>
 </tr>
 </table>
@@ -106,12 +106,24 @@
 <div class="tab">
 <h2>standard output</h2>
 <span class="code">
-<pre id="root-0-test-stdout-io.service.TransactionServiceTest">2026-08-18T15:28:46.068-06:00  INFO 17221 --- [demo] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [io.service.TransactionServiceTest]: TransactionServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-08-18T15:28:46.071-06:00  INFO 17221 --- [demo] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration io.BetterBankingApplication for test class io.service.TransactionServiceTest
-2026-08-18T15:28:46.072-06:00  INFO 17221 --- [demo] [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [io.service.TransactionServiceTest]: TransactionServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2026-08-18T15:28:46.072-06:00  INFO 17221 --- [demo] [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration io.BetterBankingApplication for test class io.service.TransactionServiceTest
+<pre id="root-0-test-stdout-io.controller.TransactionControllerIntegrationTest">
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.0)
+
+2026-08-18T15:28:45.899-06:00  INFO 17221 --- [demo] [    Test worker] i.c.TransactionControllerIntegrationTest : Starting TransactionControllerIntegrationTest using Java 17.0.17 with PID 17221 (started by puneethshankar in /Users/puneethshankar/Documents/Coding_Projects/Spring_Boot_Projects/better-banking.io)
+2026-08-18T15:28:45.899-06:00  INFO 17221 --- [demo] [    Test worker] i.c.TransactionControllerIntegrationTest : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2026-08-18T15:28:46.013-06:00  INFO 17221 --- [demo] [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-08-18T15:28:46.013-06:00  INFO 17221 --- [demo] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-08-18T15:28:46.014-06:00  INFO 17221 --- [demo] [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2026-08-18T15:28:46.020-06:00  INFO 17221 --- [demo] [    Test worker] i.c.TransactionControllerIntegrationTest : Started TransactionControllerIntegrationTest in 0.13 seconds (process running for 1.424)
 </pre>
-<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="root-0-test-stdout-io.service.TransactionServiceTest">Copy</button>
+<button class="clipboard-copy-btn" aria-label="Copy to clipboard" data-copy-element-id="root-0-test-stdout-io.controller.TransactionControllerIntegrationTest">Copy</button>
 </span>
 </div>
 </div>
