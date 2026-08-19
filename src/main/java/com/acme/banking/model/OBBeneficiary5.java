@@ -1,0 +1,253 @@
+package com.acme.banking.model;
+
+import java.net.URI;
+import java.util.Objects;
+import com.acme.banking.model.OBBranchAndFinancialInstitutionIdentification60;
+import com.acme.banking.model.OBCashAccount50;
+import com.acme.banking.model.OBInternalBeneficiaryType1Code;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.HashMap;
+import java.util.Map;
+import org.springframework.lang.Nullable;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.time.OffsetDateTime;
+import jakarta.validation.constraints.NotNull;
+import io.swagger.v3.oas.annotations.media.Schema;
+
+
+import java.util.*;
+import jakarta.annotation.Generated;
+
+/**
+ * OBBeneficiary5
+ */
+
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2026-08-19T12:42:14.469714-06:00[America/Boise]", comments = "Generator version: 7.24.0")
+public class OBBeneficiary5 {
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  private @Nullable String accountId;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  private @Nullable String beneficiaryId;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  private @Nullable OBInternalBeneficiaryType1Code beneficiaryType;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  private @Nullable String reference;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  private Map<String, Object> supplementaryData = new HashMap<>();
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  private @Nullable OBBranchAndFinancialInstitutionIdentification60 creditorAgent;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  private @Nullable OBCashAccount50 creditorAccount;
+
+  public OBBeneficiary5 accountId(@Nullable String accountId) {
+    this.accountId = accountId;
+    return this;
+  }
+
+  /**
+   * A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.
+   * @return accountId
+   */
+  
+  @Schema(name = "AccountId", example = "22289", description = "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("AccountId")
+  public @Nullable String getAccountId() {
+    return accountId;
+  }
+
+  @JsonProperty("AccountId")
+  public void setAccountId(@Nullable String accountId) {
+    this.accountId = accountId;
+  }
+
+  public OBBeneficiary5 beneficiaryId(@Nullable String beneficiaryId) {
+    this.beneficiaryId = beneficiaryId;
+    return this;
+  }
+
+  /**
+   * A unique and immutable identifier used to identify the beneficiary resource. This identifier has no meaning to the account owner.
+   * @return beneficiaryId
+   */
+  
+  @Schema(name = "BeneficiaryId", example = "Ben1", description = "A unique and immutable identifier used to identify the beneficiary resource. This identifier has no meaning to the account owner.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("BeneficiaryId")
+  public @Nullable String getBeneficiaryId() {
+    return beneficiaryId;
+  }
+
+  @JsonProperty("BeneficiaryId")
+  public void setBeneficiaryId(@Nullable String beneficiaryId) {
+    this.beneficiaryId = beneficiaryId;
+  }
+
+  public OBBeneficiary5 beneficiaryType(@Nullable OBInternalBeneficiaryType1Code beneficiaryType) {
+    this.beneficiaryType = beneficiaryType;
+    return this;
+  }
+
+  /**
+   * Get beneficiaryType
+   * @return beneficiaryType
+   */
+  
+  @Schema(name = "BeneficiaryType", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("BeneficiaryType")
+  public @Nullable OBInternalBeneficiaryType1Code getBeneficiaryType() {
+    return beneficiaryType;
+  }
+
+  @JsonProperty("BeneficiaryType")
+  public void setBeneficiaryType(@Nullable OBInternalBeneficiaryType1Code beneficiaryType) {
+    this.beneficiaryType = beneficiaryType;
+  }
+
+  public OBBeneficiary5 reference(@Nullable String reference) {
+    this.reference = reference;
+    return this;
+  }
+
+  /**
+   * Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction. Usage: If available, the initiating party should provide this reference in the structured remittance information, to enable reconciliation by the creditor upon receipt of the amount of money. If the business context requires the use of a creditor reference or a payment remit identification, and only one identifier can be passed through the end-to-end chain, the creditor's reference or payment remittance identification should be quoted in the end-to-end transaction identification.
+   * @return reference
+   */
+  
+  @Schema(name = "Reference", example = "Towbar Club", description = "Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction. Usage: If available, the initiating party should provide this reference in the structured remittance information, to enable reconciliation by the creditor upon receipt of the amount of money. If the business context requires the use of a creditor reference or a payment remit identification, and only one identifier can be passed through the end-to-end chain, the creditor's reference or payment remittance identification should be quoted in the end-to-end transaction identification.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("Reference")
+  public @Nullable String getReference() {
+    return reference;
+  }
+
+  @JsonProperty("Reference")
+  public void setReference(@Nullable String reference) {
+    this.reference = reference;
+  }
+
+  public OBBeneficiary5 supplementaryData(Map<String, Object> supplementaryData) {
+    this.supplementaryData = supplementaryData;
+    return this;
+  }
+
+  public OBBeneficiary5 putSupplementaryDataItem(String key, Object supplementaryDataItem) {
+    if (this.supplementaryData == null) {
+      this.supplementaryData = new HashMap<>();
+    }
+    this.supplementaryData.put(key, supplementaryDataItem);
+    return this;
+  }
+
+  /**
+   * Additional information that can not be captured in the structured fields and/or any other specific block.
+   * @return supplementaryData
+   */
+  
+  @Schema(name = "SupplementaryData", description = "Additional information that can not be captured in the structured fields and/or any other specific block.", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("SupplementaryData")
+  public Map<String, Object> getSupplementaryData() {
+    return supplementaryData;
+  }
+
+  @JsonProperty("SupplementaryData")
+  public void setSupplementaryData(Map<String, Object> supplementaryData) {
+    this.supplementaryData = supplementaryData;
+  }
+
+  public OBBeneficiary5 creditorAgent(@Nullable OBBranchAndFinancialInstitutionIdentification60 creditorAgent) {
+    this.creditorAgent = creditorAgent;
+    return this;
+  }
+
+  /**
+   * Get creditorAgent
+   * @return creditorAgent
+   */
+  
+  @Schema(name = "CreditorAgent", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("CreditorAgent")
+  public @Nullable OBBranchAndFinancialInstitutionIdentification60 getCreditorAgent() {
+    return creditorAgent;
+  }
+
+  @JsonProperty("CreditorAgent")
+  public void setCreditorAgent(@Nullable OBBranchAndFinancialInstitutionIdentification60 creditorAgent) {
+    this.creditorAgent = creditorAgent;
+  }
+
+  public OBBeneficiary5 creditorAccount(@Nullable OBCashAccount50 creditorAccount) {
+    this.creditorAccount = creditorAccount;
+    return this;
+  }
+
+  /**
+   * Get creditorAccount
+   * @return creditorAccount
+   */
+  
+  @Schema(name = "CreditorAccount", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("CreditorAccount")
+  public @Nullable OBCashAccount50 getCreditorAccount() {
+    return creditorAccount;
+  }
+
+  @JsonProperty("CreditorAccount")
+  public void setCreditorAccount(@Nullable OBCashAccount50 creditorAccount) {
+    this.creditorAccount = creditorAccount;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    OBBeneficiary5 obBeneficiary5 = (OBBeneficiary5) o;
+    return Objects.equals(this.accountId, obBeneficiary5.accountId) &&
+        Objects.equals(this.beneficiaryId, obBeneficiary5.beneficiaryId) &&
+        Objects.equals(this.beneficiaryType, obBeneficiary5.beneficiaryType) &&
+        Objects.equals(this.reference, obBeneficiary5.reference) &&
+        Objects.equals(this.supplementaryData, obBeneficiary5.supplementaryData) &&
+        Objects.equals(this.creditorAgent, obBeneficiary5.creditorAgent) &&
+        Objects.equals(this.creditorAccount, obBeneficiary5.creditorAccount);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(accountId, beneficiaryId, beneficiaryType, reference, supplementaryData, creditorAgent, creditorAccount);
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("class OBBeneficiary5 {\n");
+    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
+    sb.append("    beneficiaryId: ").append(toIndentedString(beneficiaryId)).append("\n");
+    sb.append("    beneficiaryType: ").append(toIndentedString(beneficiaryType)).append("\n");
+    sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
+    sb.append("    supplementaryData: ").append(toIndentedString(supplementaryData)).append("\n");
+    sb.append("    creditorAgent: ").append(toIndentedString(creditorAgent)).append("\n");
+    sb.append("    creditorAccount: ").append(toIndentedString(creditorAccount)).append("\n");
+    sb.append("}");
+    return sb.toString();
+  }
+
+  /**
+   * Convert the given object to string with each line indented by 4 spaces
+   * (except the first line).
+   */
+  private String toIndentedString(@Nullable Object o) {
+    return o == null ? "null" : o.toString().replace("\n", "\n    ");
+  }
+}
+

@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '4.1.0'
 	id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.openapi.generator' version '7.24.0'
 }
 
 group = 'io.better-banking'
@@ -41,6 +42,10 @@ dependencies {
     testImplementation("org.testcontainers:testcontainers-junit-jupiter:2.0.5")
     testImplementation 'org.testcontainers:testcontainers-mysql:2.0.5'
     testImplementation 'io.rest-assured:spring-mock-mvc:3.0.0'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'io.swagger.core.v3:swagger-annotations-jakarta:2.2.22'
+
 }
 
 tasks.named('test') {
@@ -57,3 +62,30 @@ tasks.register('srcZip', Zip) {
         println "Path to zip: $archivePath.path"
     }
 }
+
+openApiGenerate {
+    generatorName.set("spring")
+    generateModelDocumentation = false
+    generateApiDocumentation = false
+    inputSpec = "$projectDir/open_api/open-banking.yaml"
+    outputDir = "$projectDir/generated"
+    apiPackage = "com.acme.banking.api"
+    modelPackage = "com.acme.banking.model"
+    invokerPackage = "com.acme.banking.invoker"
+    configOptions.set([
+            dateLibrary: "java17",
+            basePackage: "com.acme.banking",
+            interfaceOnly: "true",
+            useSpringBoot3: "true",
+            useBeanValidation: "false"
+    ])
+}
+
+tasks.register('copyGenerated',Copy) {
+    from "$projectDir/generated/src/main/java/com/acme/banking/model"
+    into "$projectDir/src/main/java/com/acme/banking/model"
+}
+tasks.register('cleanGenerated',Delete) {
+    delete "$projectDir/src/main/java/com"
+}
+clean.dependsOn cleanGenerated
