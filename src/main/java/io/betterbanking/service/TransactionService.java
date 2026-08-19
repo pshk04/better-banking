@@ -1,25 +1,43 @@
 package io.betterbanking.service;
 
 import io.betterbanking.entity.Transaction;
-import io.betterbanking.repository.TransactionRepository;
+import io.betterbanking.repository.MerchantDetailsRepository;
+import io.betterbanking.repository.TransactionApiClient;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
 public class TransactionService {
 
-    private final TransactionRepository transactionRepository;
+    private final TransactionApiClient transactionApiClient;
+    private final MerchantDetailsRepository merchantDetailsRepository;
 
     @Autowired
-    public TransactionService(final TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
+    public TransactionService(
+            final TransactionApiClient transactionApiClient,
+            final MerchantDetailsRepository merchantDetailsRepository) {
+        this.transactionApiClient = transactionApiClient;
+        this.merchantDetailsRepository = merchantDetailsRepository;
     }
 
-    public List<Transaction> findAllByAccountNumber(int accountNumber){
+    @CircuitBreaker(name = "transactionService", fallbackMethod = "foundNone")
+    public List<Transaction> findAllByAccountNumber(final int accountNumber){
+        var transactions = transactionApiClient.findAllByAccountNumber(accountNumber);
+        transactions.forEach(transaction -> {
+            merchantDetailsRepository
+                    .findMerchantLogo(transaction.getMerchantName())
+                    .ifPresent(logo ->
+                            transaction.setMerchantLogo(logo)
+                    );
+        });
 
-        return transactionRepository.findAllByAccountNumber(accountNumber);
+        return transactions;
+    }
+
+    private List<Transaction> foundNone(final Integer accountNumber, final Throwable throwable) {
+        return Collections.emptyList();
     }
 }

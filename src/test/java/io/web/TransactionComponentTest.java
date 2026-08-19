@@ -19,7 +19,7 @@ public class TransactionComponentTest {
     private int port;
 
     @Mock
-    private TransactionRepository transactionRepository;
+    private TransactionController transactionController;
 
     @BeforeEach
     public void setUp() {
@@ -28,7 +28,7 @@ public class TransactionComponentTest {
 
     @Test
     public void testApplicationEndToEnd(){
-        given().standaloneSetup(new TransactionController(new TransactionService(transactionRepository)))
+        given().standaloneSetup(transactionController)
                 .when()
                 .get(String.format("http://localhost:%s/api/v1/transactions/1", port))
                 .then()
