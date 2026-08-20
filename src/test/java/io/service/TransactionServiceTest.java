@@ -26,7 +26,7 @@ public class TransactionServiceTest {
 
     @DisplayName("test TransactionService with mock TransactionApiClient")
     @Test
-    public void verifyTransactionsCount(){
+    public void verifyTransactionsCount() throws Exception{
 
         when(transactionApiClient.findAllByAccountNumber(any()))
                 .thenReturn(List.of(new Transaction()));

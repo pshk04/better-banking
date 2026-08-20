@@ -23,10 +23,10 @@ public class TransactionController {
     }
 
     @GetMapping("/{accountNumber}")
-    List<Transaction> getTransactions(@PathVariable("accountNumber") final int accountNumber){
+    public List<Transaction> getTransactions(@PathVariable("accountNumber") final Integer accountNumber) throws Exception{
 
-        List<Transaction> transactionsList = transactionService.findAllByAccountNumber(accountNumber);
-        return transactionsList;
+        return transactionService.findAllByAccountNumber(accountNumber);
+
     }
 
     private TransactionDto map(final Transaction tr) {

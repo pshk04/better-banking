@@ -18,7 +18,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private int accountNumber;
+    private Integer accountNumber;
     private String type;
     private Date date;
     private String currency;

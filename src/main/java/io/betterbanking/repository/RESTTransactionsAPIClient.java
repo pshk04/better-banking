@@ -2,7 +2,6 @@ package io.betterbanking.repository;
 
 import com.acme.banking.model.OBReadTransaction6;
 import io.betterbanking.adapters.acme.OBTransactionAdapter;
-import io.betterbanking.configuration.WebClientConfig;
 import io.betterbanking.entity.Transaction;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,20 +20,20 @@ public class RESTTransactionsAPIClient implements TransactionApiClient {
 
     @Autowired
     public RESTTransactionsAPIClient(final WebClient client) {
-        this.client = new WebClientConfig().webClient();
+        this.client = client;
     }
 
     @Override
-    public List<Transaction> findAllByAccountNumber(final int accountNumber){
+    public List<Transaction> findAllByAccountNumber(final Integer accountNumber){
         OBReadTransaction6 res = null;
-
+        System.out.println("CLient: "+client.get().toString());
         try {
             res = client.get()
                     .uri("accounts/" + accountNumber + "/transactions")
                     .retrieve()
                     .bodyToMono(OBReadTransaction6.class)
-                    .block()
-            ;
+                    .block();
+            System.out.println("transaction size: "+res.getData().getTransaction().size());
         } catch (Exception ex) {
             log.error("failed to retrieve account information due to the following reason {}", ex.getMessage());
         }

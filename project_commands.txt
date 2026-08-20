@@ -7,6 +7,9 @@ To run tests from root project folder:
 
 	./gradlew test
 
+To run as 'dev' profile:
+
+	./gradlew bootRun --args='--spring.profiles.active=dev'
 
 
 
@@ -21,4 +24,12 @@ Docker:
   				   \mysql:latest
 
 
-testImplementation 'io.rest-assured:spring-mock-mvc:5.5.0'
+  	Connect to Mysql DB on docker:
+
+  		mysql -h 127.0.0.1 -u root -p
+
+
+
+
+
+
