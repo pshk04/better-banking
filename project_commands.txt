@@ -30,6 +30,34 @@ Docker:
 
 
 
+  	Keycloak:
+
+  		docker run -d -p 127.0.0.1:8080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.7.2 start-dev --hostname-debug=true
+
+  		docker run -d -p 127.0.0.1:9001:9001 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.7.2 start-dev --hostname-debug=true
+
+
+  		 curl 'http://127.0.0.1:8080/realms/open-banking-realm/protocol/openid-connect/token'  \
+                        -H 'Content-Type: application/x-www-form-urlencoded' \
+                        -d 'client_id=open-banking' \
+                        -d 'client_secret=rgYFQlzkdsqP4eWv5HcpHJIzzxNfCdoOy1WjQVtfYQEGpbL8Xv7A3ZnWNhZ6sjZLf0N6Jg3PkU3eq1ASlCbMlX' \
+                        -d 'grant_type=password' \
+                        -d 'username=pbikks' \
+                        -d 'password=keycloak123'\
+			
+
+
+		curl 'http://127.0.0.1:8080/realms/open-banking-realm/protocol/openid-connect/token'  \
+  			-H "Content-Type: application/x-www-form-urlencoded" \
+  			-d "grant_type=client_credentials" \
+  			-d "client_id=open-banking" \
+  			-d "client_secret=rgYFQlzkdsqP4eWv5HcpHJIzzxNfCdoOy1WjQVtfYQEGpbL8Xv7A3ZnWNhZ6sjZLf0N6Jg3PkU3eq1ASlCbMlX"
+
+  			
+
+
+
+
 
 
 
