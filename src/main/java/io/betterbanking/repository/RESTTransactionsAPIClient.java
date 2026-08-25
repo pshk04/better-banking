@@ -36,6 +36,7 @@ public class RESTTransactionsAPIClient implements TransactionApiClient {
                     .block();
         } catch (Exception ex) {
             log.error("failed to retrieve account information due to the following reason {}", ex.getMessage());
+            throw ex;
         }
 
         if (res == null || res.getData() == null) {

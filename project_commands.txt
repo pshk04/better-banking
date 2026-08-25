@@ -50,7 +50,7 @@ Docker:
   		 curl 'http://127.0.0.1:9001/realms/open-banking-realm/protocol/openid-connect/token'  \
                         -H 'Content-Type: application/x-www-form-urlencoded' \
                         -d 'client_id=open-banking' \
-                        -d 'client_secret=Gu1AMpXnOLbn0fjzlI23kUagCt3uyHzg' \
+                        -d 'client_secret=hdovmwWKW55PRYkIMeAvfWRatAGUxyhp' \
                         -d 'grant_type=password' \
                         -d 'username=pbikks' \
                         -d 'password=keycloak1'
@@ -64,7 +64,7 @@ Docker:
   			-d "client_secret=Gu1AMpXnOLbn0fjzlI23kUagCt3uyHzg"
 
 
-  		curl -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJkUmNKOTJJSW91UmoxR3lwWnVRcmNzTVg1bmhVSHhoTFFobmJCMUxGLUdBIn0.eyJleHAiOjE3ODc2Nzc5MDcsImlhdCI6MTc4NzY3NzYwNywianRpIjoiYTRmYTAwMmYtZDk5ZS00YzkyLTk2OTMtNDdkN2I5ZmY3YjUyIiwiaXNzIjoiaHR0cDovLzEyNy4wLjAuMTo5MDAxL3JlYWxtcy9vcGVuLWJhbmtpbmctcmVhbG0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYWFjY2YyYjAtYTE4MS00YjVlLWFiZTMtZGFjNGJhYjMyMzUzIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoib3Blbi1iYW5raW5nIiwic2Vzc2lvbl9zdGF0ZSI6Ijc4MjVkNThhLWZkZTEtNGI3My04NjBkLTA5MWFkMjhiMjk1OCIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo5MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtb3Blbi1iYW5raW5nLXJlYWxtIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiI3ODI1ZDU4YS1mZGUxLTRiNzMtODYwZC0wOTFhZDI4YjI5NTgiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJQdW5lZXRoIEJpa2tzIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicGJpa2tzIiwiZ2l2ZW5fbmFtZSI6IlB1bmVldGgiLCJmYW1pbHlfbmFtZSI6IkJpa2tzIiwiZW1haWwiOiJwdW5lZXRoLmJpa2thc2FuZHJhQGdtYWlsLmNvbSJ9.oZDlkaWC3yHPBgiiysOGNxcJNxnh55o9uZHlHzli3LAGPcK9iS91F_03Y4eQPlPUMlOXbdwV-5H4gcBs2wAYQsaJb84bRsYMzNbE2OTlGpXGgYKp-GemgylFHnu464PKHRTWRRXairDr5oXJNt8BTNigsCn0hpfGjC1vIMiKLh0DM1xfrXu8gPe3G8XdpUxn0qnOStw8G4-e9KJcrsJq042BQGQ4QMkSo_S9-puSDeWtMXRULMu0_f-yg6heVuob44cV3bN8ZFFW4cAWB7X0EKVL7iajeFd2UTkVbfifu_th7VO4cQwJj_Vc3nDBWCt_at_srga3MAiXano7vEH0Hw","expires_in":300,"refresh_expires_in":1800,"refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5YTMyZjc0Zi1jYWVlLTQ4MjktYjE3ZS1lYzY0OGZjMmQ0MzkifQ.eyJleHAiOjE3ODc2Nzk0MDcsImlhdCI6MTc4NzY3NzYwNywianRpIjoiMjJmN2ViMGEtOTBhMS00OGY1LTkzYWYtZDEwYjk0ZjgzNWNlIiwiaXNzIjoiaHR0cDovLzEyNy4wLjAuMTo5MDAxL3JlYWxtcy9vcGVuLWJhbmtpbmctcmVhbG0iLCJhdWQiOiJodHRwOi8vMTI3LjAuMC4xOjkwMDEvcmVhbG1zL29wZW4tYmFua2luZy1yZWFsbSIsInN1YiI6ImFhY2NmMmIwLWExODEtNGI1ZS1hYmUzLWRhYzRiYWIzMjM1MyIsInR5cCI6IlJlZnJlc2giLCJhenAiOiJvcGVuLWJhbmtpbmciLCJzZXNzaW9uX3N0YXRlIjoiNzgyNWQ1OGEtZmRlMS00YjczLTg2MGQtMDkxYWQyOGIyOTU4Iiwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiNzgyNWQ1OGEtZmRlMS00YjczLTg2MGQtMDkxYWQyOGIyOTU4In0.yYg-BoZYR9TCTgx1TPVqN2Z-gd5v95HPcx8taMrF7-Y","token_type":"Bearer","not-before-policy":0,"session_state":"7825d58a-fde1-4b73-860d-091ad28b2958" http://localhost:9000/api/v1/transactions/1234567
+  		curl -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJEejZFcFV1djBHa2Ntai1NRUlMTG5ISXhCUjBucHhsS1JUZEx0cXc5V0o4In0.eyJleHAiOjE3ODc2ODQ3NDEsImlhdCI6MTc4NzY4Mzg0MSwianRpIjoiYWM4NmNkZGEtZjcwZi00MTMzLTlkNzItM2M3NTllOTY4MjI5IiwiaXNzIjoiaHR0cDovLzEyNy4wLjAuMTo5MDAxL3JlYWxtcy9vcGVuLWJhbmtpbmctcmVhbG0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDM4MjU0NTctMzgzYi00ZGY4LWE2NDctOWQ5MDhjYTdkZDE1IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoib3Blbi1iYW5raW5nIiwic2Vzc2lvbl9zdGF0ZSI6IjdjOGM0ZjA3LWI0MDAtNGFmYS05NjBkLWNmM2FhNDFmMmRhNiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo5MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsIm9wZW5fYmFua2luZ19yb2xlIiwiZGVmYXVsdC1yb2xlcy1vcGVuLWJhbmtpbmctcmVhbG0iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSByb2xlcyBlbWFpbCIsInNpZCI6IjdjOGM0ZjA3LWI0MDAtNGFmYS05NjBkLWNmM2FhNDFmMmRhNiIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IlB1bmVldGggQmlra3MiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJwYmlra3MiLCJnaXZlbl9uYW1lIjoiUHVuZWV0aCIsImZhbWlseV9uYW1lIjoiQmlra3MiLCJlbWFpbCI6InB1bmVldGguYmlra2FzYW5kcmFAZ21haWwuY29tIn0.s15Mht856UZX0wrQyzOeSSUH7X5QbOSO-x1Tc9Ld4LL-laafN4mILcjW42Mr2LEKWfZSKJrNPQsaF2EGMdTywi9nP0F_iUI2nn5XfwanKwC9eWV8CXww0WMe5T4HRfjo_aw2XS1wjaR_nXAAn0jxY4tSAUyrsqZ-0mO4evSJiAzB68-jF59H5MbFW-8-sYxhcIpfn0iQemcW9mqqMAfwRK3x2b1bNldevDX6TNLCy9bXI5jW1L5wVTbFjLxCltk2DFS9wOFf_s3_Qbh5n9a-QsGAE9n1_lFAKKuCDafczKwqc-SPWY2krYHRDzf08cHma_El9qYd7JuSHHMH3QdGlw" http://localhost:9000/api/v1/transactions/1234567
 		
 
   		curl -H "Authorization: Bearer abc123xyz" https://example.com
@@ -78,7 +78,7 @@ Docker:
 		{
 		  "realm": "myrealm",
 		  "bearer-only": true,
-		  "auth-server-url": "http://localhost:9001}", 
+		  "auth-server-url": "http://localhost:9001", 
 		  "resource": "service-nodejs",
 		  "verify-token-audience": false
 		}
