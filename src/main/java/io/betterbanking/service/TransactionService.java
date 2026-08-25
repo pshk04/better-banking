@@ -5,6 +5,7 @@ import io.betterbanking.repository.MerchantDetailsRepository;
 import io.betterbanking.repository.TransactionApiClient;
 import io.betterbanking.repository.TransactionRepository;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -22,22 +23,23 @@ public class TransactionService {
         this.transactionRepository = transactionRepository;
     }
 
-//    @CircuitBreaker(name = "transactionService", fallbackMethod = "findAllByAccountNumber")
-//    public List<Transaction> findAllByAccountNumber(final Integer accountNumber) throws Exception {
-//        var transactions = transactionApiClient.findAllByAccountNumber(accountNumber);
-//        transactions.forEach(transaction -> {
-//            merchantDetailsRepository
-//                    .findMerchantLogo(transaction.getMerchantName())
-//                    .ifPresent(logo ->
-//                            transaction.setMerchantLogo(logo)
-//                    );
-//        });
-//
-//        return transactions;
-//    }
+//    @PostFilter(value = "hasAuthority(filterObject.accountNumber)")
+    @CircuitBreaker(name = "transactionService", fallbackMethod = "findAllByAccountNumber")
+    public List<Transaction> findAllByAccountNumber(final Integer accountNumber) throws Exception {
+        var transactions = transactionApiClient.findAllByAccountNumber(accountNumber);
+        transactions.forEach(transaction -> {
+            merchantDetailsRepository
+                    .findMerchantLogo(transaction.getMerchantName())
+                    .ifPresent(logo ->
+                            transaction.setMerchantLogo(logo)
+                    );
+        });
+
+        return transactions;
+    }
 // final Throwable throwable
 
-    public List<Transaction> findAllByAccountNumber(final Integer accountNumber) {
+    public List<Transaction> findAllByAccountNumber(final Integer accountNumber, final Throwable throwable) {
         log.info("falling back to database to get transactions");
         return transactionRepository.findAllByAccountNumber(accountNumber);
     }

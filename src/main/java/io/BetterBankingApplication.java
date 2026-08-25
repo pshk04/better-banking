@@ -15,12 +15,12 @@ import java.util.Date;
 @SpringBootApplication
 public class BetterBankingApplication {
 
+    @Value("${io.betterbanking.integration.url-base}")
+    private String baseUrl;
+
 	public static void main(String[] args) {
 		SpringApplication.run(BetterBankingApplication.class, args);
 	}
-
-    @Value("${io.betterbanking.integration.url-base}")
-    private String baseUrl;
 
     @Bean
     public WebClient webClient() {
@@ -45,6 +45,19 @@ public class BetterBankingApplication {
                     .merchantLogo("images/globex.png")
                     .build();
             repository.save(t);
+
+            var t1 = Transaction
+                    .builder()
+                    .type("Debit")
+                    .date(new Date())
+                    .accountNumber(123456)
+                    .currency("USD")
+                    .amount(100.00)
+                    .merchantName("Globex")
+                    .merchantLogo("images/globex.png")
+                    .build();
+            repository.save(t1);
+
         };
     }
 }

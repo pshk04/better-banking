@@ -34,28 +34,69 @@ Docker:
 
   		docker run -d -p 127.0.0.1:8080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.7.2 start-dev --hostname-debug=true
 
-  		docker run -d -p 127.0.0.1:9001:9001 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.7.2 start-dev --hostname-debug=true
+
+  		docker run -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin -e KC_LOG_LEVEL=DEBUG  -p 127.0.0.1:9001:8080 quay.io/keycloak/keycloak:22.0.0 start-dev
 
 
-  		 curl 'http://127.0.0.1:8080/realms/open-banking-realm/protocol/openid-connect/token'  \
+  		docker cp <container_id_or_name>:/opt/keycloak/conf/keycloak.conf ./keycloak.conf
+
+  		docker cp ./keycloak.conf <container_id_or_name>:/opt/keycloak/conf/keycloak.conf
+
+
+  		docker run -d -p 9020:9020 -v ./keycloak.conf:/opt/keycloak/conf/keycloak.conf quay.io/keycloak/keycloak:latest start-dev
+
+
+
+  		 curl 'http://127.0.0.1:9001/realms/open-banking-realm/protocol/openid-connect/token'  \
                         -H 'Content-Type: application/x-www-form-urlencoded' \
                         -d 'client_id=open-banking' \
-                        -d 'client_secret=rgYFQlzkdsqP4eWv5HcpHJIzzxNfCdoOy1WjQVtfYQEGpbL8Xv7A3ZnWNhZ6sjZLf0N6Jg3PkU3eq1ASlCbMlX' \
+                        -d 'client_secret=Gu1AMpXnOLbn0fjzlI23kUagCt3uyHzg' \
                         -d 'grant_type=password' \
                         -d 'username=pbikks' \
-                        -d 'password=keycloak123'\
+                        -d 'password=keycloak1'
 			
 
 
-		curl 'http://127.0.0.1:8080/realms/open-banking-realm/protocol/openid-connect/token'  \
+		curl 'http://127.0.0.1:9001/realms/open-banking-realm/protocol/openid-connect/token'  \
   			-H "Content-Type: application/x-www-form-urlencoded" \
   			-d "grant_type=client_credentials" \
   			-d "client_id=open-banking" \
-  			-d "client_secret=rgYFQlzkdsqP4eWv5HcpHJIzzxNfCdoOy1WjQVtfYQEGpbL8Xv7A3ZnWNhZ6sjZLf0N6Jg3PkU3eq1ASlCbMlX"
-
-  			
+  			-d "client_secret=Gu1AMpXnOLbn0fjzlI23kUagCt3uyHzg"
 
 
+  		curl -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJkUmNKOTJJSW91UmoxR3lwWnVRcmNzTVg1bmhVSHhoTFFobmJCMUxGLUdBIn0.eyJleHAiOjE3ODc2Nzc5MDcsImlhdCI6MTc4NzY3NzYwNywianRpIjoiYTRmYTAwMmYtZDk5ZS00YzkyLTk2OTMtNDdkN2I5ZmY3YjUyIiwiaXNzIjoiaHR0cDovLzEyNy4wLjAuMTo5MDAxL3JlYWxtcy9vcGVuLWJhbmtpbmctcmVhbG0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYWFjY2YyYjAtYTE4MS00YjVlLWFiZTMtZGFjNGJhYjMyMzUzIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoib3Blbi1iYW5raW5nIiwic2Vzc2lvbl9zdGF0ZSI6Ijc4MjVkNThhLWZkZTEtNGI3My04NjBkLTA5MWFkMjhiMjk1OCIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo5MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtb3Blbi1iYW5raW5nLXJlYWxtIiwidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50IiwibWFuYWdlLWFjY291bnQtbGlua3MiLCJ2aWV3LXByb2ZpbGUiXX19LCJzY29wZSI6ImVtYWlsIHByb2ZpbGUiLCJzaWQiOiI3ODI1ZDU4YS1mZGUxLTRiNzMtODYwZC0wOTFhZDI4YjI5NTgiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJQdW5lZXRoIEJpa2tzIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicGJpa2tzIiwiZ2l2ZW5fbmFtZSI6IlB1bmVldGgiLCJmYW1pbHlfbmFtZSI6IkJpa2tzIiwiZW1haWwiOiJwdW5lZXRoLmJpa2thc2FuZHJhQGdtYWlsLmNvbSJ9.oZDlkaWC3yHPBgiiysOGNxcJNxnh55o9uZHlHzli3LAGPcK9iS91F_03Y4eQPlPUMlOXbdwV-5H4gcBs2wAYQsaJb84bRsYMzNbE2OTlGpXGgYKp-GemgylFHnu464PKHRTWRRXairDr5oXJNt8BTNigsCn0hpfGjC1vIMiKLh0DM1xfrXu8gPe3G8XdpUxn0qnOStw8G4-e9KJcrsJq042BQGQ4QMkSo_S9-puSDeWtMXRULMu0_f-yg6heVuob44cV3bN8ZFFW4cAWB7X0EKVL7iajeFd2UTkVbfifu_th7VO4cQwJj_Vc3nDBWCt_at_srga3MAiXano7vEH0Hw","expires_in":300,"refresh_expires_in":1800,"refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI5YTMyZjc0Zi1jYWVlLTQ4MjktYjE3ZS1lYzY0OGZjMmQ0MzkifQ.eyJleHAiOjE3ODc2Nzk0MDcsImlhdCI6MTc4NzY3NzYwNywianRpIjoiMjJmN2ViMGEtOTBhMS00OGY1LTkzYWYtZDEwYjk0ZjgzNWNlIiwiaXNzIjoiaHR0cDovLzEyNy4wLjAuMTo5MDAxL3JlYWxtcy9vcGVuLWJhbmtpbmctcmVhbG0iLCJhdWQiOiJodHRwOi8vMTI3LjAuMC4xOjkwMDEvcmVhbG1zL29wZW4tYmFua2luZy1yZWFsbSIsInN1YiI6ImFhY2NmMmIwLWExODEtNGI1ZS1hYmUzLWRhYzRiYWIzMjM1MyIsInR5cCI6IlJlZnJlc2giLCJhenAiOiJvcGVuLWJhbmtpbmciLCJzZXNzaW9uX3N0YXRlIjoiNzgyNWQ1OGEtZmRlMS00YjczLTg2MGQtMDkxYWQyOGIyOTU4Iiwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiNzgyNWQ1OGEtZmRlMS00YjczLTg2MGQtMDkxYWQyOGIyOTU4In0.yYg-BoZYR9TCTgx1TPVqN2Z-gd5v95HPcx8taMrF7-Y","token_type":"Bearer","not-before-policy":0,"session_state":"7825d58a-fde1-4b73-860d-091ad28b2958" http://localhost:9000/api/v1/transactions/1234567
+		
+
+  		curl -H "Authorization: Bearer abc123xyz" https://example.com
+
+
+  		curl -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJMZS1ZS0dsVnBiSld2OEhlZmtBZ1pNSlVpdmQ0SlBZRDk3cW92bXpVdGNBIn0.eyJleHAiOjE3ODc2MjA3MjMsImlhdCI6MTc4NzYxOTgyMywiYXV0aF90aW1lIjoxNzg3NjE4NTI1LCJqdGkiOiIzNGY3MjliNy1jNjZlLTQ5ZjktOGNmNy03MzMyMzU2YmJlYmQiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwMDEvcmVhbG1zL215cmVhbG0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNjRjZjExMTctZTc0ZC00ODE3LThjMWYtODQxZTVkOGRiNmZiIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibXljbGllbnQiLCJub25jZSI6ImU5MjBjZmQ3LWMwZGEtNDdiNi05NDBhLTA1ZWI3MWY3N2FlMiIsInNlc3Npb25fc3RhdGUiOiIzMDlmNGE0Zi1kYmU4LTQwODMtYWZlMy03OGU4YzUzNmZmOWQiLCJhY3IiOiIwIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1teXJlYWxtIiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsIm15cm9sZSJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHJvbGVzIHByb2ZpbGUgZW1haWwiLCJzaWQiOiIzMDlmNGE0Zi1kYmU4LTQwODMtYWZlMy03OGU4YzUzNmZmOWQiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJQdW5lZXRoIEJpa2tzIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicGJpa2tzIiwiZ2l2ZW5fbmFtZSI6IlB1bmVldGgiLCJmYW1pbHlfbmFtZSI6IkJpa2tzIiwicGljdHVyZSI6Imh0dHBzOi8vZW5jcnlwdGVkLXRibjAuZ3N0YXRpYy5jb20vaW1hZ2VzP3E9dGJuOkFOZDlHY1RISjRJWjNvdF9LNU45cEhBNXpkWHgyMXVZN1FXNmpUUGhuZks3ZlMyU0ZhUFdZeDFZSW5UV1ZPayZzPTEwIiwiZW1haWwiOiJwdW5lZXRoLmJpa2thc2FuZHJhQGdtYWlsLmNvbSJ9.hH3CSX_YovZhmSpHlFITyW4satj2EFJ6hNtwAlzJART5HCb-ieFSH-eqD-1YAwhpcdDczZu-4vhR2ShGSOPRk2cxvA-DBwyVOA486D1Qn8uMQv8T_ejR7VZrdBPdbzPmLsN-bzPTtvjhePdHHLs3XNBVpScF33ELWG9RrEjCnglOmmAeRC6vYpk2Vjtlmi41zvvxrOcQ0U_IIrxzv0EHgOQXcjp-pLZhJXubF99L_6l9iBrD-WUtCcgPq0l4mVCw5EJWLl_A-HkQAWsVVAqMIOE9v1hJoAivNsEZKkNUQvHvg5Rcewh-a0kJU2gB6uT_e-eSIZNm7lApc32oMWpdXw" http://localhost:3000/secured
+
+
+  		ketcloak.json:
+
+		{
+		  "realm": "myrealm",
+		  "bearer-only": true,
+		  "auth-server-url": "http://localhost:9001}", 
+		  "resource": "service-nodejs",
+		  "verify-token-audience": false
+		}
+
+
+
+  References:
+
+  		https://learning.oreilly.com/library/view/keycloak-identity/9781804616444/Text/Chapter_04.xhtml#_idParaDest-52
+
+  		https://dev.to/bansikah/keycloak-and-spring-boot-the-ultimate-guide-to-implementing-single-sign-on-1af7
+
+
+
+
+PIC URL:
+
+	https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHJ4IZ3ot_K5N9pHA5zdXx21uY7QW6jTPhnfK7fS2SFaPWYx1YInTWVOk&s=10
 
 
 

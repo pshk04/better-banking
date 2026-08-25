@@ -15,6 +15,7 @@ import static java.util.stream.Collectors.toList;
 @Repository
 public class RESTTransactionsAPIClient implements TransactionApiClient {
 
+    @Autowired
     private final WebClient client;
     private final OBTransactionAdapter adapter = new OBTransactionAdapter();
 
@@ -33,7 +34,6 @@ public class RESTTransactionsAPIClient implements TransactionApiClient {
                     .retrieve()
                     .bodyToMono(OBReadTransaction6.class)
                     .block();
-            System.out.println("transaction size: "+res.getData().getTransaction().size());
         } catch (Exception ex) {
             log.error("failed to retrieve account information due to the following reason {}", ex.getMessage());
         }
