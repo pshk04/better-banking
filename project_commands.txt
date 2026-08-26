@@ -17,16 +17,36 @@ Docker:
 
 	Starting mysql container by passing password and an option to run from any host as environment variable:
 
-		docker run -d --name mysql-container -p 3306:3306 \
+		docker run --name better_banking \
+				   -p 3306:3306 \
   				   -e MYSQL_ROOT_PASSWORD="root" \
   				   -e MYSQL_ROOT_HOST="%" \
   				   -e MYSQL_DATABASE=better_banking \
+  				   -v mysql_data_1:/var/lib/mysql \
   				   \mysql:latest
+
+		docker run --name acme \
+  					-p 3308:3306 \
+					-e MYSQL_ROOT_PASSWORD=123456 \
+					-e MYSQL_ROOT_HOST="%" \
+  				    -e MYSQL_DATABASE=acme \
+					-v mysql_data_2:/var/lib/mysql \
+					-d mysql:8.0
+
 
 
   	Connect to Mysql DB on docker:
 
   		mysql -h 127.0.0.1 -u root -p
+
+  		mysql --host=127.0.0.1 --port=3308 --user=root -p
+
+
+  		ALTER USER 'root'@'%' IDENTIFIED WITH caching_sha2_password BY 'your_password';
+		
+		FLUSH PRIVILEGES;
+
+
 
 
 
@@ -57,20 +77,16 @@ Docker:
 			
 
 
-		curl 'http://127.0.0.1:9001/realms/open-banking-realm/protocol/openid-connect/token'  \
-  			-H "Content-Type: application/x-www-form-urlencoded" \
-  			-d "grant_type=client_credentials" \
-  			-d "client_id=open-banking" \
-  			-d "client_secret=Gu1AMpXnOLbn0fjzlI23kUagCt3uyHzg"
+			curl 'http://127.0.0.1:9001/realms/open-banking-realm/protocol/openid-connect/token'  \
+	  			-H "Content-Type: application/x-www-form-urlencoded" \
+	  			-d "grant_type=client_credentials" \
+	  			-d "client_id=open-banking" \
+	  			-d "client_secret=Gu1AMpXnOLbn0fjzlI23kUagCt3uyHzg"
 
 
-  		curl -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJEejZFcFV1djBHa2Ntai1NRUlMTG5ISXhCUjBucHhsS1JUZEx0cXc5V0o4In0.eyJleHAiOjE3ODc2ODQ3NDEsImlhdCI6MTc4NzY4Mzg0MSwianRpIjoiYWM4NmNkZGEtZjcwZi00MTMzLTlkNzItM2M3NTllOTY4MjI5IiwiaXNzIjoiaHR0cDovLzEyNy4wLjAuMTo5MDAxL3JlYWxtcy9vcGVuLWJhbmtpbmctcmVhbG0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDM4MjU0NTctMzgzYi00ZGY4LWE2NDctOWQ5MDhjYTdkZDE1IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoib3Blbi1iYW5raW5nIiwic2Vzc2lvbl9zdGF0ZSI6IjdjOGM0ZjA3LWI0MDAtNGFmYS05NjBkLWNmM2FhNDFmMmRhNiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo5MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsIm9wZW5fYmFua2luZ19yb2xlIiwiZGVmYXVsdC1yb2xlcy1vcGVuLWJhbmtpbmctcmVhbG0iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSByb2xlcyBlbWFpbCIsInNpZCI6IjdjOGM0ZjA3LWI0MDAtNGFmYS05NjBkLWNmM2FhNDFmMmRhNiIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IlB1bmVldGggQmlra3MiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJwYmlra3MiLCJnaXZlbl9uYW1lIjoiUHVuZWV0aCIsImZhbWlseV9uYW1lIjoiQmlra3MiLCJlbWFpbCI6InB1bmVldGguYmlra2FzYW5kcmFAZ21haWwuY29tIn0.s15Mht856UZX0wrQyzOeSSUH7X5QbOSO-x1Tc9Ld4LL-laafN4mILcjW42Mr2LEKWfZSKJrNPQsaF2EGMdTywi9nP0F_iUI2nn5XfwanKwC9eWV8CXww0WMe5T4HRfjo_aw2XS1wjaR_nXAAn0jxY4tSAUyrsqZ-0mO4evSJiAzB68-jF59H5MbFW-8-sYxhcIpfn0iQemcW9mqqMAfwRK3x2b1bNldevDX6TNLCy9bXI5jW1L5wVTbFjLxCltk2DFS9wOFf_s3_Qbh5n9a-QsGAE9n1_lFAKKuCDafczKwqc-SPWY2krYHRDzf08cHma_El9qYd7JuSHHMH3QdGlw" http://localhost:9000/api/v1/transactions/1234567
+
+  	 curl -X GET http://localhost:9000/api/v1/transactions/1234567 -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJEejZFcFV1djBHa2Ntai1NRUlMTG5ISXhCUjBucHhsS1JUZEx0cXc5V0o4In0.eyJleHAiOjE3ODc2OTcwNjYsImlhdCI6MTc4NzY5NjE2NiwianRpIjoiNzMzZWFiMGQtY2E2Ni00ZDM2LWI5ZjItNDgxMmI0ODM5NWFiIiwiaXNzIjoiaHR0cDovLzEyNy4wLjAuMTo5MDAxL3JlYWxtcy9vcGVuLWJhbmtpbmctcmVhbG0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDM4MjU0NTctMzgzYi00ZGY4LWE2NDctOWQ5MDhjYTdkZDE1IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoib3Blbi1iYW5raW5nIiwic2Vzc2lvbl9zdGF0ZSI6IjEzMGE2MTFmLTQ3MTAtNGFmNy05ODc2LTRhNWJlYjY4MTZmNCIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo5MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsIm9wZW5fYmFua2luZ19yb2xlIiwiZGVmYXVsdC1yb2xlcy1vcGVuLWJhbmtpbmctcmVhbG0iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSByb2xlcyBlbWFpbCIsInNpZCI6IjEzMGE2MTFmLTQ3MTAtNGFmNy05ODc2LTRhNWJlYjY4MTZmNCIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IlB1bmVldGggQmlra3MiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJwYmlra3MiLCJnaXZlbl9uYW1lIjoiUHVuZWV0aCIsImZhbWlseV9uYW1lIjoiQmlra3MiLCJlbWFpbCI6InB1bmVldGguYmlra2FzYW5kcmFAZ21haWwuY29tIn0.jArG-4-dYe3T1K_1kx4Za8gFiKdys1NVW0jy2RGtWnXDjSr_csUop8kml9c_IgKWYDBVVM5_60PVxhwV7siSJ6to16neQU06LQKzmarCRGyrwZHoBfvvhu6L4PYNc_kw7YfLddSNXOuOUpePPSQhYNpnTDrJkvQl5Xuc7FUiJIv4e3r4evneCMJMZ5APb9cnHEmvPepYRW-ljvzXNs8cKRIuoLIl2aEeWSQk4j2rcMZpzEAesBCjKCQNJwnJw7kxu2XqRD2poLN1YRYZpEEcB4jNt-Y9DpEgr5IWl7lGtu3o01NT6uCeq-38u6M_dVT5dxIwWHEg_kbLVAfoLMZ9pA"
 		
-
-  		curl -H "Authorization: Bearer abc123xyz" https://example.com
-
-
-  		curl -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJMZS1ZS0dsVnBiSld2OEhlZmtBZ1pNSlVpdmQ0SlBZRDk3cW92bXpVdGNBIn0.eyJleHAiOjE3ODc2MjA3MjMsImlhdCI6MTc4NzYxOTgyMywiYXV0aF90aW1lIjoxNzg3NjE4NTI1LCJqdGkiOiIzNGY3MjliNy1jNjZlLTQ5ZjktOGNmNy03MzMyMzU2YmJlYmQiLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjkwMDEvcmVhbG1zL215cmVhbG0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNjRjZjExMTctZTc0ZC00ODE3LThjMWYtODQxZTVkOGRiNmZiIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoibXljbGllbnQiLCJub25jZSI6ImU5MjBjZmQ3LWMwZGEtNDdiNi05NDBhLTA1ZWI3MWY3N2FlMiIsInNlc3Npb25fc3RhdGUiOiIzMDlmNGE0Zi1kYmU4LTQwODMtYWZlMy03OGU4YzUzNmZmOWQiLCJhY3IiOiIwIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1teXJlYWxtIiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiIsIm15cm9sZSJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHJvbGVzIHByb2ZpbGUgZW1haWwiLCJzaWQiOiIzMDlmNGE0Zi1kYmU4LTQwODMtYWZlMy03OGU4YzUzNmZmOWQiLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsIm5hbWUiOiJQdW5lZXRoIEJpa2tzIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicGJpa2tzIiwiZ2l2ZW5fbmFtZSI6IlB1bmVldGgiLCJmYW1pbHlfbmFtZSI6IkJpa2tzIiwicGljdHVyZSI6Imh0dHBzOi8vZW5jcnlwdGVkLXRibjAuZ3N0YXRpYy5jb20vaW1hZ2VzP3E9dGJuOkFOZDlHY1RISjRJWjNvdF9LNU45cEhBNXpkWHgyMXVZN1FXNmpUUGhuZks3ZlMyU0ZhUFdZeDFZSW5UV1ZPayZzPTEwIiwiZW1haWwiOiJwdW5lZXRoLmJpa2thc2FuZHJhQGdtYWlsLmNvbSJ9.hH3CSX_YovZhmSpHlFITyW4satj2EFJ6hNtwAlzJART5HCb-ieFSH-eqD-1YAwhpcdDczZu-4vhR2ShGSOPRk2cxvA-DBwyVOA486D1Qn8uMQv8T_ejR7VZrdBPdbzPmLsN-bzPTtvjhePdHHLs3XNBVpScF33ELWG9RrEjCnglOmmAeRC6vYpk2Vjtlmi41zvvxrOcQ0U_IIrxzv0EHgOQXcjp-pLZhJXubF99L_6l9iBrD-WUtCcgPq0l4mVCw5EJWLl_A-HkQAWsVVAqMIOE9v1hJoAivNsEZKkNUQvHvg5Rcewh-a0kJU2gB6uT_e-eSIZNm7lApc32oMWpdXw" http://localhost:3000/secured
 
 
   		ketcloak.json:
@@ -82,6 +98,13 @@ Docker:
 		  "resource": "service-nodejs",
 		  "verify-token-audience": false
 		}
+
+
+		curl -X POST \
+  			-H "Authorization: Basic YmV0dGVyLWJhbmtpbmc6N3lyYlI4WHBZNDViY0tQUA==" \
+  			-d "grant_type=client_credentials" \
+  			http://localhost:8080/oauth/token
+
 
 
 
