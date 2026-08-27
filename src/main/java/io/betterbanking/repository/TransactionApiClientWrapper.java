@@ -1,5 +1,6 @@
 package io.betterbanking.repository;
 
+import io.betterbanking.service.TransactionService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +14,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TransactionApiClientWrapper {
 
-    private final TransactionApiClient transactionApiClient; // your raw HTTP/Feign client
+    private final TransactionApiClient transactionApiClient;
     private final TransactionRepository transactionRepository;
+    private final TransactionService transactionService;
 
     @CircuitBreaker(name = "transactionService", fallbackMethod = "apiFallback")
     public List<Transaction> fetchRemoteTransactions(final Integer accountNumber) throws Exception {
@@ -27,6 +29,6 @@ public class TransactionApiClientWrapper {
         log.info("falling back to database to get transactions");
 
         // Return your local DB backup
-        return transactionRepository.findAllByAccountNumber(accountNumber);
+        return transactionService.pollByAccountNumber(accountNumber);
     }
 }
