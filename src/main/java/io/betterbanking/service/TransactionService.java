@@ -7,6 +7,7 @@ import io.betterbanking.repository.TransactionApiClientWrapper;
 import io.betterbanking.repository.TransactionRepository;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.prepost.PostFilter;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,7 @@ public class TransactionService {
         log.info("finished polling for new transactions");
     }
 
+    @Cacheable(cacheNames = "transactions")
     @PostFilter("hasAuthority(filterObject.accountNumber.toString())")
     public List<Transaction> findAllByAccountNumber(final Integer accountNumber) throws Exception {
 
@@ -59,7 +61,8 @@ public class TransactionService {
 
     @CircuitBreaker(name = "transactionService", fallbackMethod = "apiFallback")
     public List<Transaction> fetchRemoteTransactions(final Integer accountNumber) throws Exception {
-        return transactionRepository.findAllByAccountNumber(accountNumber);
+//        return transactionRepository.findAllByAccountNumber(accountNumber);
+        return transactionApiClient.findAllByAccountNumber(accountNumber);
     }
 
     public List<Transaction> apiFallback(final Integer accountNumber, final Throwable throwable) {
@@ -67,7 +70,9 @@ public class TransactionService {
         log.info("falling back to get remote transactions");
 
         // Return your local DB backup
-        return pollByAccountNumber(accountNumber);
+//        return pollByAccountNumber(accountNumber);
+        log.info("falling back to database to get transactions");
+        return transactionRepository.findAllByAccountNumber(accountNumber);
     }
 
     public List<Transaction> pollByAccountNumber(final Integer accountNumber) {

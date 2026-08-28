@@ -12,9 +12,11 @@ group = 'io.better-banking'
 version = '0.0.1-SNAPSHOT'
 
 configurations.all {
-    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-        if (details.requested.group == 'org.springframework') {
-            details.useVersion '7.0.8'
+    resolutionStrategy {
+        eachDependency { details ->
+            if (details.requested.group == 'org.springframework') {
+                details.useVersion '7.0.8'
+            }
         }
     }
 }
@@ -66,6 +68,11 @@ dependencies {
     implementation 'org.keycloak:keycloak-spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
     implementation 'org.springframework:spring-core:6.0.13'
+
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.apache.commons:commons-pool2'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }
 
 dependencyManagement {

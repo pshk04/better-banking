@@ -2,6 +2,7 @@ package io.betterbanking.repository;
 
 import com.acme.banking.model.OBReadTransaction6;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.betterbanking.adapters.acme.OBTransactionAdapter;
 import io.betterbanking.entity.Transaction;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import reactor.core.publisher.Mono;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
@@ -46,15 +49,19 @@ public class RESTTransactionsAPIClient implements TransactionApiClient {
                     .header("Authorization", "Basic " + encodedClientData)
                     .body(BodyInserters.fromFormData("grant_type", "client_credentials"))
                     .retrieve()
-                    .bodyToMono(JsonNode.class)
-                    .flatMap(tokenResponse -> {
-                        String accessTokenValue = tokenResponse.get("access_token")
-                                .textValue();
-                        return client.get()
-                                .uri("accounts/" + accountNumber + "/transactions")
-                                .headers(h -> h.setBearerAuth(accessTokenValue))
-                                .retrieve()
-                                .bodyToMono(OBReadTransaction6.class);
+                    .bodyToMono(String.class)
+                    .flatMap(rawJson -> {
+                        try {
+                            String accessTokenValue = new ObjectMapper().readTree(rawJson).get("access_token").textValue();
+                            return client.get()
+                                    .uri("accounts/" + accountNumber + "/transactions")
+                                    .headers(h -> h.setBearerAuth(accessTokenValue))
+                                    .retrieve()
+                                    .bodyToMono(OBReadTransaction6.class);
+                        } catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+                            // Forward the checked exception down the reactive pipeline cleanly
+                            return Mono.error(e);
+                        }
                     })
                     .block();
         } catch (Exception ex) {

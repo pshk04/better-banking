@@ -41,8 +41,14 @@ Docker:
 
   		mysql --host=127.0.0.1 --port=3308 --user=root -p
 
+  		docker exec -it <container_name_or_id> mysql -u root -p
 
-  		ALTER USER 'root'@'%' IDENTIFIED WITH caching_sha2_password BY 'your_password';
+  		docker exec -it dc8f145c4f44 mysql --port=3308 -u root -p
+
+  		
+
+
+  		ALTER USER 'root'@'%' IDENTIFIED WITH caching_sha2_password BY '123456';
 		
 		FLUSH PRIVILEGES;
 
@@ -52,7 +58,7 @@ Docker:
 
   	Keycloak:
 
-  		docker run -d -p 127.0.0.1:8080:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:26.7.2 start-dev --hostname-debug=true
+  		docker run -d -p 127.0.0.1:9001:8080 -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin -e KC_LOG_LEVEL=DEBUG quay.io/keycloak/keycloak:26.7.2 start-dev --hostname-debug=true
 
 
   		docker run -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin -e KC_LOG_LEVEL=DEBUG  -p 127.0.0.1:9001:8080 quay.io/keycloak/keycloak:22.0.0 start-dev
@@ -70,24 +76,30 @@ Docker:
   		 curl 'http://127.0.0.1:9001/realms/open-banking-realm/protocol/openid-connect/token'  \
                         -H 'Content-Type: application/x-www-form-urlencoded' \
                         -d 'client_id=open-banking' \
-                        -d 'client_secret=hdovmwWKW55PRYkIMeAvfWRatAGUxyhp' \
+                        -d 'client_secret=V6qg0fh6u9FyElrqnNEdftaajLYhdqbG' \
                         -d 'grant_type=password' \
                         -d 'username=pbikks' \
-                        -d 'password=keycloak1'
+                        -d 'password=keycloak'
 			
 
 
-			curl 'http://127.0.0.1:9001/realms/open-banking-realm/protocol/openid-connect/token'  \
-	  			-H "Content-Type: application/x-www-form-urlencoded" \
-	  			-d "grant_type=client_credentials" \
-	  			-d "client_id=open-banking" \
-	  			-d "client_secret=Gu1AMpXnOLbn0fjzlI23kUagCt3uyHzg"
+			curl 'http://127.0.0.1:9001/realms/open-banking-realm/protocol/openid-connect/token'  \ -H "Content-Type:
+			application/x-www-form-urlencoded" \ -d "grant_type=client_credentials" \ -d "client_id=open-banking" \ -d
+			"client_secret=f9L1jvCeQFHYxZ2BjAxaZDwSc8Y8OHjI"
 
 
 
-  	 curl -X GET http://localhost:9000/api/v1/transactions/1234567 -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJEejZFcFV1djBHa2Ntai1NRUlMTG5ISXhCUjBucHhsS1JUZEx0cXc5V0o4In0.eyJleHAiOjE3ODc2OTcwNjYsImlhdCI6MTc4NzY5NjE2NiwianRpIjoiNzMzZWFiMGQtY2E2Ni00ZDM2LWI5ZjItNDgxMmI0ODM5NWFiIiwiaXNzIjoiaHR0cDovLzEyNy4wLjAuMTo5MDAxL3JlYWxtcy9vcGVuLWJhbmtpbmctcmVhbG0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDM4MjU0NTctMzgzYi00ZGY4LWE2NDctOWQ5MDhjYTdkZDE1IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoib3Blbi1iYW5raW5nIiwic2Vzc2lvbl9zdGF0ZSI6IjEzMGE2MTFmLTQ3MTAtNGFmNy05ODc2LTRhNWJlYjY4MTZmNCIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo5MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsIm9wZW5fYmFua2luZ19yb2xlIiwiZGVmYXVsdC1yb2xlcy1vcGVuLWJhbmtpbmctcmVhbG0iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSByb2xlcyBlbWFpbCIsInNpZCI6IjEzMGE2MTFmLTQ3MTAtNGFmNy05ODc2LTRhNWJlYjY4MTZmNCIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwibmFtZSI6IlB1bmVldGggQmlra3MiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJwYmlra3MiLCJnaXZlbl9uYW1lIjoiUHVuZWV0aCIsImZhbWlseV9uYW1lIjoiQmlra3MiLCJlbWFpbCI6InB1bmVldGguYmlra2FzYW5kcmFAZ21haWwuY29tIn0.jArG-4-dYe3T1K_1kx4Za8gFiKdys1NVW0jy2RGtWnXDjSr_csUop8kml9c_IgKWYDBVVM5_60PVxhwV7siSJ6to16neQU06LQKzmarCRGyrwZHoBfvvhu6L4PYNc_kw7YfLddSNXOuOUpePPSQhYNpnTDrJkvQl5Xuc7FUiJIv4e3r4evneCMJMZ5APb9cnHEmvPepYRW-ljvzXNs8cKRIuoLIl2aEeWSQk4j2rcMZpzEAesBCjKCQNJwnJw7kxu2XqRD2poLN1YRYZpEEcB4jNt-Y9DpEgr5IWl7lGtu3o01NT6uCeq-38u6M_dVT5dxIwWHEg_kbLVAfoLMZ9pA"
+	 curl -H "Authorization: Bearer
+	 eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJZZDlmcUN5Zm95am5ib1JOeXRnejl3ejZwdFdsS3JNOE9aUWtnd2VzUmxnIn0.eyJleHAiOjE3ODc4MDA3OTYsImlhdCI6MTc4Nzc5OTg5NiwianRpIjoiYjU0NTg2NzItNjYzOC00NWU1LTlkYzQtZDA4YjdiODZiMzc0IiwiaXNzIjoiaHR0cDovLzEyNy4wLjAuMTo5MDAxL3JlYWxtcy9vcGVuLWJhbmtpbmctcmVhbG0iLCJzdWIiOiIwY2FlM2JiMS00MTVmLTRmNWItOWM3NC01YWQ5ODY5NTIxMDkiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJvcGVuLWJhbmtpbmciLCJzZXNzaW9uX3N0YXRlIjoiNzI5NTY5YzUtZjY3Ny00ZGQ3LWE2NTAtOTRjMTI5NjhmNzkzIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwOi8vbG9jYWxob3N0OjkwMDAiXSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiNzI5NTY5YzUtZjY3Ny00ZGQ3LWE2NTAtOTRjMTI5NjhmNzkzIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJQdW5lZXRoIEJpa2tzIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicGJpa2tzIiwiZ2l2ZW5fbmFtZSI6IlB1bmVldGgiLCJmYW1pbHlfbmFtZSI6IkJpa2tzIiwiZW1haWwiOiJwdW5lZXRoLmJpa2thc2FuZHJhQGdtYWlsLmNvbSJ9.p_B6zTIz234MX_RnQ3bXzwzo2Io1h49S9LAUHNQUB75UZMuOFRpWRzKh3bUvrAdBpYV7jZ9CbsjXwTnhIsFIA3pm4xLJiz8DbBV_ZDajR5yo5PT6R8I-vEisNq6lcC2ADH_PhUl3K9ON72zUqK-aJv0M6KiNpMS9fXV4Hl2ndBtJGFGgeRlPOE-rLCwhGcFoKfi1-upXriwv2qJRWF4Hb8y9mDvfqHKI5Fefj0r5ESZl7ot4qhVp7h3Eb9MpgoYKYuDLCUn0oz7t1mTPrFbU-vCskpLec4ixQ"
+	 -X GET http://127.0.0.1:9000/api/v1/transactions/1234567
+
+	
+	 curl -X GET http://127.0.0.1:9000/api/v1/transactions/123456 -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJyTnY0YjVTSDNGNUJnRUtJMDRUREsyZGZiNnpMdUszOU1UX1J2VlY1QUlVIn0.eyJleHAiOjE3ODc4NjAzMzcsImlhdCI6MTc4Nzg1OTQzNywianRpIjoiZTNiM2IxZjUtNWQzMi00YWI2LWE5OTItY2YwY2IxNTE0Y2QzIiwiaXNzIjoiaHR0cDovLzEyNy4wLjAuMTo5MDAxL3JlYWxtcy9vcGVuLWJhbmtpbmctcmVhbG0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiYTI1MzlkZmEtYmIyMC00MGVjLTk5NGQtNjA4YzE3NzA5NWQ0IiwidHlwIjoiQmVhcmVyIiwiYXpwIjoib3Blbi1iYW5raW5nIiwic2Vzc2lvbl9zdGF0ZSI6IjhmNTg3ZmQwLWRlYTUtNGYzZS1iNDYxLTU5ZGY5NDZmYmFhNSIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo5MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsIm9wZW5fYmFua2luZ19yb2xlIiwiZGVmYXVsdC1yb2xlcy1vcGVuLWJhbmtpbmctcmVhbG0iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoicHJvZmlsZSByb2xlcyBlbWFpbCIsInNpZCI6IjhmNTg3ZmQwLWRlYTUtNGYzZS1iNDYxLTU5ZGY5NDZmYmFhNSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiUHVuZWV0aCBCaWtrcyIsInByZWZlcnJlZF91c2VybmFtZSI6InBiaWtrcyIsImdpdmVuX25hbWUiOiJQdW5lZXRoIiwiZmFtaWx5X25hbWUiOiJCaWtrcyIsImVtYWlsIjoicHVuZWV0aC5iaWtrYXNhbmRyYUBnbWFpbC5jb20ifQ.Dv10Ey-dWAxwFp-K2a4Lk2-1IQfWB_nVDq88g-EoGqVS_CBWzvgulzxf42K_jkMeRT9Q8EIEVEzZY3T8FD7Zw_Y0AC2qOXnDHsvIbcwf21x7RTmYrDdnwSW7OaMzBWTcnwvWRq41kiXSdsWp7SbDD3WziNVfjShUDnBfcvoYUGOA-Px56gR-mw6BKKm-NWXmTfjhprr10TJ0MO2WdA1qcbhH9-v2TlIaFrLSXcvU3id6DR8qE_LVFuJlLhI1SRt9AfpQZItmIOAUTLyOLzkKSEGu7834DQ2k6frKNSlvQK9p_ldXde6k60zf7OcFqqdIt4Op-p0Cg_iJT3qsc8znsw"
+      
+
 		
-
+	 command: --default-authentication-plugin=mysql_native_password
+	 
 
   		ketcloak.json:
 
@@ -99,11 +111,47 @@ Docker:
 		  "verify-token-audience": false
 		}
 
+		curl -X POST 'http://localhost:8080/oauth/token'  \ 
+			 -d "grant_type=client_credentials" \ 
+			 -d "client_id=open-banking" \ 
+			 -d "client_secret=7yrbR8XpY45bcKPP"
+
 
 		curl -X POST \
   			-H "Authorization: Basic YmV0dGVyLWJhbmtpbmc6N3lyYlI4WHBZNDViY0tQUA==" \
   			-d "grant_type=client_credentials" \
-  			http://localhost:8080/oauth/token
+  			-k http://localhost:8080/oauth/token
+
+
+  		{"access_token":"c1f00279-8f0c-4f43-8515-df1666b3aaec","token_type":"bearer","expires_in":43199,"scope":"read"}%   
+
+
+  		curl -X GET \
+  			 -H "Authorization: Bearer 486769a8-2026-458c-94e6-e919a37f3cd4" \
+  			 -H "accept: application/json" \
+  			 "http://localhost:8080/accounts/1234567/transactions"
+
+
+
+
+		const TOKEN_STRING = "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJmUnU0UFk0ZlVOZ2pNRDJCMGVyZ2lRWm9Gb2pHNmVEOWFoWFV3ZERXQjdFIn0.eyJleHAiOjE3ODc4NTQ1OTMsImlhdCI6MTc4Nzg1MzY5MywianRpIjoib25ydHJvOmI3NmVkZjZhLTUzNGEtYjZkZS05MWUwLWZlMmQ2MDVjNWE0YiIsImlzcyI6Imh0dHA6Ly8xMjcuMC4wLjE6OTAwMS9yZWFsbXMvb3Blbi1iYW5raW5nLXJlYWxtIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6IjUwZGExODNiLTIwMzMtNDI0My1iZThlLTdjYmZiYmFiM2E4MCIsInR5cCI6IkJlYXJlciIsImF6cCI6Im9wZW4tYmFua2luZyIsInNpZCI6ImVjR3p2VWFfRTNkeGdEcDN2T1RDQUU2UiIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo5MDAwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvcGVuX2Jhbmtpbmdfcm9sZSIsIm9mZmxpbmVfYWNjZXNzIiwiZGVmYXVsdC1yb2xlcy1vcGVuLWJhbmtpbmctcmVhbG0iLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoiZW1haWwgcHJvZmlsZSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJuYW1lIjoiUHVuZWV0aCBCaWtrcyIsInByZWZlcnJlZF91c2VybmFtZSI6InBiaWtrcyIsImdpdmVuX25hbWUiOiJQdW5lZXRoIiwiZmFtaWx5X25hbWUiOiJCaWtrcyIsImVtYWlsIjoicHVuZWV0aC5iaWtrYXNhbmRyYUBnbWFpbC5jb20ifQ.n5SCqy8jYJeItaCzafqA9tLDdF5VknDvLc55T-G-msaMvEWn42xVySicL3RNOKsjB4fC0psbX85_REn6s_JwNObG6G4Gn_52sUeWgzCsdXqKdUtirRer3AOZOhmHyKMJYUPaWBGZIcmUKBYNOMKNFJRedBZfKo0sf_K1ehESP1jUwHMOh2kr76HmThii2PD8W1RULEBFYRTwMnooc0zylPstODcaUqDIxddaERNfjV8mPJ-9FEAI_9_n6rQXP8LYSSAardWiMVj9KfGqOJ-ne8ymFqOM61IJTR598ihOlgm3BGxS6b6DQ9K5uFHRzbXAV49bBWE0pW39t5L5sCgr3A""; 
+
+		fetch('http://localhost:9000/api/v1/transactions/1234567', {
+		    method: 'GET',
+		    headers: {
+		        'Authorization': `Bearer ${TOKEN_STRING}`, // Must include the word 'Bearer' followed by a space
+		        'Content-Type': 'application/json'
+		    }
+		})
+		.then(response => {
+		    console.log("HTTP Response Code:", response.status); // Should now be 200 OK
+		    return response.text(); 
+		})
+		.then(data => {
+		    console.log("Response Body Payload:");
+		    console.log(data ? JSON.parse(data) : "Empty Response Body");
+		})
+		.catch(error => console.error('Fetch System Error:', error));  			 
 
 
 
